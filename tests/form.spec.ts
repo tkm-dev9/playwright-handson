@@ -1,0 +1,9 @@
+import test, { expect } from "@playwright/test";
+
+test('フォーム操作のテスト', async ({ page }) => {
+  await page.goto('http://localhost:3000/form');
+  await page.getByRole('textbox', { name: /1人目/ }).fill('Bob');
+  await page.getByRole('textbox', { name: /2人目/ }).fill('John');
+  await page.getByRole('button', { name: /シャッフル/ }).click();
+  await expect(page.getByRole('status', { name: /結果/})).toHaveText(/(Bob→John)|(John→Bob)/)
+})
